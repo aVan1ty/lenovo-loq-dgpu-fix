@@ -1,0 +1,6 @@
+# Disable D3cold to keep PCIe link alive on AC unplug
+ACTION=="add|bind", SUBSYSTEM=="pci", KERNEL=="0000:01:00.0", ATTR{d3cold_allowed}="0"
+ACTION=="add|bind", SUBSYSTEM=="pci", KERNEL=="0000:00:01.0", ATTR{d3cold_allowed}="0"
+
+# Unbind pciehp from dGPU root port (internal GPU never needs hotplug)
+ACTION=="add", SUBSYSTEM=="pci_express", KERNEL=="0000:00:01.0:pcie004", DRIVER=="pciehp", RUN+="/bin/sh -c 'echo 0000:00:01.0:pcie004 > /sys/bus/pci_express/drivers/pciehp/unbind 2>/dev/null || true'"

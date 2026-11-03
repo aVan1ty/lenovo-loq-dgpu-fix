@@ -1,0 +1,15 @@
+[Unit]
+Description=Auto Refresh Rate & Power Mode Switcher (144Hz Balanced on AC, 60Hz Power Saver on Battery)
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/auto-refresh.sh
+Restart=on-failure
+RestartSec=2
+KillMode=control-group
+TimeoutStopSec=2
+
+[Install]
+WantedBy=graphical-session.target
